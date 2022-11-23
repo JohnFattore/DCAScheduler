@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request, session
+from flask import Flask, render_template, redirect, request, session, url_for
 import sqlite3
 from flask_session import Session
 
@@ -11,9 +11,17 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-@app.route('/')
+@app.route("/")
 def index():
-   return render_template('index.html')
+   return render_template("index.html")
+
+@app.route("/scheduler", methods=["GET","POST"])
+def scheduler():
+   if request.method == "POST":
+      stock = request.form.get("stock")
+      return render_template("schedulerpost.html", stock=stock)
+   else:
+      return render_template("scheduler.html")
 
 
 
