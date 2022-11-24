@@ -11,6 +11,11 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
+con = sqlite3.connect("portfolio.db", check_same_thread=False)
+db = con.cursor()
+# db.execute("CREATE TABLE users(id INTEGER, username TEXT, password_hash INTEGER, PRIMARY KEY(id));")
+
+
 @app.route("/")
 def index():
    return render_template("index.html")
@@ -23,7 +28,18 @@ def scheduler():
    else:
       return render_template("scheduler.html")
 
-
+@app.route("/register", methods=["GET","POST"])
+def register():
+   if request.method == "POST":
+      temp = db.execute("SELECT MAX(id) from users")
+      id = 1
+      username = request.form.get("username")
+      password = request.form.get("password")
+      db.execute("INSERT INTO users VALUES(?, ?, ?)", id, request.form.get("username"), request.form.get("password"))
+      con.commit()
+      return render_template("registerpost.html", test = temp.fetchone())
+   else:
+      return render_template("register.html")
 
 if __name__ == '__main__':
    app.run(debug=True)
