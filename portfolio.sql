@@ -11,6 +11,7 @@ CREATE TABLE stocks
     id INTEGER,
     symbol TEXT,
     shares INTEGER,
+    cost INTEGER,
     user_id INTEGER,
     PRIMARY KEY(id),
     FOREIGN KEY(user_id) REFERENCES users(id)

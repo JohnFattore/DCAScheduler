@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+<form action="/assetmanager" method="POST" enctype=multipart/form-data>
+    <div class="mb-3">
+      </div>
+    <br>
+    <div class="mb-3">
+      <label for="symbol" class="form-label">Symbol</label>
+      <input type="text" class="form-control" id="symbol" name="symbol">
+    </div>
+    <br>
+    <div class="mb-3">
+        <label for="shares" class="form-label">Shares</label>
+        <input type="number" class="form-control" id="shares" name="shares">
+      </div>
+      <br>
+    <div class="mb-3">
+        <label for="costbasis" class="form-label">Cost Basis</label>
+        <input type="number" class="form-control" id="costbasis" name="costbasis">
+      </div>
+      <br>
+    <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+{% if test %}
+    <p> <strong>{{ test }}</strong>
+{% endif %}
+{% endblock %}
